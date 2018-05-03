@@ -7,13 +7,17 @@ import android.widget.BaseAdapter
 import android.view.LayoutInflater
 import android.widget.TextView
 import com.uabc.edu.listas.R
-import kotlinx.android.synthetic.main.row_list.view.*
 
-class Adaptador constructor(private val context: Context,
-                            private val inflater: LayoutInflater) :BaseAdapter(){
+class Adaptador (private val context: Context,
+                 private val inflater: LayoutInflater,
+                 datos: ArrayList<String>) :BaseAdapter(){
 
-    var datos=Array<String>(1,{"http://google.com"})
+    private var datos:ArrayList<String>
 
+    init {
+    this.datos=datos
+
+    }
     override fun getView(position: Int, convertedView: View?, parent: ViewGroup?): View {
 
         val view:View?
@@ -23,6 +27,7 @@ class Adaptador constructor(private val context: Context,
             view=inflater.inflate(R.layout.row_list,parent,false)
             //Se crear el Holder para el renglon y ahorrar memoria
              urlHolder=URLHolder(view)
+            urlHolder.url.text=datos.get(position)
             //Se agrega el holder para evitarrecrearlo
             view?.tag=urlHolder
 
@@ -50,7 +55,7 @@ class Adaptador constructor(private val context: Context,
     }
 
 
-    private class URLHolder(row:View?){
+    public class URLHolder(row:View?){
 
         val url:TextView
 
